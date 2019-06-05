@@ -1,0 +1,19 @@
+<div *ngIf="isSearchActive">
+
+<div *ngIf="movies.length > 0;else notFound">
+  <h1>Movies:</h1>
+  <app-movie *ngFor="let movie of movies">
+    <div>
+      <h5>{{movie.Title}}</h5>
+      <img [src]=movie.Poster /><br>
+      <a href='https://www.imdb.com/title/{{movie.imdbID}}' target="_blank">link to {{movie.Title}}</a>
+    </div>
+  </app-movie>
+  <button [disabled]="!isLoadMore" (click)="loadMore()">Load More</button>
+</div>
+<ng-template #notFound>
+  <h4>Not Found</h4>
+</ng-template>
+
+</div>
+
