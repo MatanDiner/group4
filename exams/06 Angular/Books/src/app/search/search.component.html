@@ -1,0 +1,13 @@
+<div id="form">
+
+<div>
+  <form (submit)="onSubmit($event,search)">
+     <input type="text" placeholder="Search..." #search />
+     <button>Search</button>
+  </form>
+</div>
+<div>
+  {{message}}
+</div>
+
+</div>

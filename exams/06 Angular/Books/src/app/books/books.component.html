@@ -1,0 +1,36 @@
+<div id="books" *ngIf="hasResults">
+
+  <div *ngIf="books.length,else NotFound">
+
+    <app-book *ngFor="let book of books,let i = index">
+      <div id="book">
+        <h4 (click)="showDetails(i)">{{book.title}}</h4>
+        <ul>Authors:
+          <li *ngFor="let author of book.authors">
+            {{author}}
+          </li>
+        </ul>
+        <a [href]=book.previewLink target="_blank">link to book page</a>
+        <div *ngIf="book.bookDetails">
+          <div>
+            <img [src]="book.smallThumbnail" />
+          </div>
+          <div>
+            <strong>publisher:</strong>
+            <p>{{book.publisher}}</p>
+            <strong>publishedDate:</strong>
+            <p>{{book.publishedDate}}</p>
+            <strong>description:</strong>
+            <p>{{book.description}}</p>
+          </div>
+        </div>
+      </div>
+    </app-book>
+    <br>
+    <button [disabled]="!isLoadMore" (click)="loadMore()">Load More</button>
+  </div>
+  <ng-template #NotFound>
+    <h4>Not Found</h4>
+  </ng-template>
+
+</div>
