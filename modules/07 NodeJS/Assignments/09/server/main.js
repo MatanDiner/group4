@@ -9,13 +9,13 @@ const data = {
     songs:[
         {
             id:1,
-            title:"xx",
+            title:"bb",
             singer:"xxxxxx",
             words:"xxxxxxxxxxx xxx xxxxx",
     },
     {
         id:2,
-        title:"yyy",
+        title:"dd",
         singer:"yyyyyy",
         words:"yyyyy yyyy",
     },
@@ -27,13 +27,13 @@ const data = {
     },
     {
         id:4,
-        title:"eeeee",
+        title:"cc",
         singer:"eeeeeeeeee",
         words:"eeeeeeeeeeeeeeee xxx xxxxx",
     },
     {
         id:5,
-        title:"rrrrrrr",
+        title:"ee",
         singer:"rrrrrrrrrrr",
         words:"rrrrrrrrrrrrrrrrr xxx xxxxx",
     }
@@ -46,8 +46,7 @@ app.get('/songs',(req,res,next)=>{
     
 const {sort} = req.query;
 if(sort){
-const songsArr = [...data.songs];
-songsArr.sort(compare);
+const songsArr = sortArray([...data.songs],sort);
 res.json(songsArr);
 }
 else
@@ -61,17 +60,29 @@ res.json(data["songs"]);
 })
 
 
+function sortArray(arr,val){
+
+    const mapped = arr.map((item,i)=>{
+        return {index:i,value:item[val]};
+    })
+
+    mapped.sort(function( a, b ) {
+        if ( a.value < b.value ){
+          return -1;
+        }
+        if ( a.value > b.value ){
+          return 1;
+        }
+        return 0;
+      });
+
+      return mapped.map(obj=>{
+          return arr[obj.index];
+      })
+
+}
 
 
-function compare( a, b ) {
-    if ( a.title < b.title ){
-      return -1;
-    }
-    if ( a.title > b.title ){
-      return 1;
-    }
-    return 0;
-  }
 
 
   app.post('/song',(req,res)=>{
